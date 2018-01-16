@@ -4,7 +4,7 @@
   "description": "A simple node application which connects slider with esp8266 module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/deepanshut041/iot-esp#readme",
   "dependencies": {
+    "cors": "^2.8.4",
     "express": "^4.16.2",
-    "socketio": "^1.0.0"
+    "socket.io": "^2.0.4"
   }
 }
