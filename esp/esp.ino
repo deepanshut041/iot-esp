@@ -1,98 +1,79 @@
 #include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+#include <ArduinoJson.h>
+
+// Replace it with your username and password
+const char* ssid = "Ess3";
+const char* password = "123456789@";
  
-const char* ssid = "Magesh";
-const char* password = "jayakumar";
+void setup () {
  
-int ledPin = 13; // GPIO13
-WiFiServer server(80);
- 
-void setup() {
   Serial.begin(115200);
-  delay(10);
- 
-  pinMode(ledPin, OUTPUT);
-  digitalWrite(ledPin, LOW);
- 
-  // Connect to WiFi network
-  Serial.println();
-  Serial.println();
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
- 
   WiFi.begin(ssid, password);
- 
   while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+    delay(1000);
+    Serial.print("Connecting..");
   }
-  Serial.println("");
-  Serial.println("WiFi connected");
- 
-  // Start the server
-  server.begin();
-  Serial.println("Server started");
- 
-  // Print the IP address
-  Serial.print("Use this URL to connect: ");
-  Serial.print("http://");
-  Serial.print(WiFi.localIP());
-  Serial.println("/");
  
 }
  
 void loop() {
-  // Check if a client has connected
-  WiFiClient client = server.available();
-  if (!client) {
+ 
+  if (WiFi.status() == WL_CONNECTED) { //Check WiFi connection status
+ 
+    HTTPClient http;  //Declare an object of class HTTPClient
+
+    // Replace it with your current ip(--> cmd type ipconfig and use ipv4 address instaed of 192.168.1.114
+    http.begin("http://192.168.1.114:3000/api/board");  //Specify request destination
+    int httpCode = http.GET();                                                                  //Send the request
+ 
+    if (httpCode > 0) { //Check the returning code
+ 
+      String payload = http.getString();   //Get the request response payload
+      sensor_code(payload);
+    }
+ 
+    http.end();   //Close connection
+ 
+  }
+  delay(3000);    //Send a request every 3 seconds
+}
+
+void sensor_code(String payload){
+  StaticJsonBuffer<200> jsonBuffer;
+  char Json[200];
+  payload.toCharArray(Json, 200);
+  JsonObject& root = jsonBuffer.parseObject(Json);
+  if (!root.success()) {
+    Serial.println("parseObject() failed");
     return;
   }
- 
-  // Wait until the client sends some data
-  Serial.println("new client");
-  while(!client.available()){
-    delay(1);
-  }
- 
-  // Read the first line of the request
-  String request = client.readStringUntil('\r');
-  Serial.println(request);
-  client.flush();
- 
-  // Match the request
- 
-  int value = LOW;
-  if (request.indexOf("/LED=ON") != -1)  {
-    digitalWrite(ledPin, HIGH);
-    value = HIGH;
-  }
-  if (request.indexOf("/LED=OFF") != -1)  {
-    digitalWrite(ledPin, LOW);
-    value = LOW;
-  }
- 
-// Set ledPin according to the request
-//digitalWrite(ledPin, value);
- 
-  // Return the response
-  client.println("HTTP/1.1 200 OK");
-  client.println("Content-Type: text/html");
-  client.println(""); //  do not forget this one
-  client.println("<!DOCTYPE HTML>");
-  client.println("<html>");
- 
-  client.print("Led pin is now: ");
- 
-  if(value == HIGH) {
-    client.print("On");
-  } else {
-    client.print("Off");
-  }
-  client.println("<br><br>");
-  client.println("<a href=\"/LED=ON\"\"><button>Turn On </button></a>");
-  client.println("<a href=\"/LED=OFF\"\"><button>Turn Off </button></a><br />");  
-  client.println("</html>");
- 
-  delay(1);
-  Serial.println("Client disonnected");
+  // Fan switch and slider variable are here
+  boolean fan_switch = root["fan_switch"];
+  int fan_slider = root["fan_slider"];
+  
+  // Ac switch and slider variable are here
+  boolean ac_switch = root["ac_switch"];
+  int ac_slider = root["ac_slider"];
+  
+  // Light switch and slider variable are here
+  boolean light_switch = root["light_switch"];
+  int light_slider = root["light_slider"];
+
+
+  // Printing their value to serialer monitor
+  Serial.println("");
+  Serial.println("Fan values are ");
+  Serial.println(fan_switch);
+  Serial.println(fan_slider);
+  Serial.println("");
+  Serial.println("Ac values are ");
+  Serial.println(ac_switch);
+  Serial.println(ac_slider);
+  Serial.println("");
+  Serial.println("Light values are ");
+  Serial.println(light_switch);
+  Serial.println(light_slider);
+  Serial.println("");
   Serial.println("");
 }
