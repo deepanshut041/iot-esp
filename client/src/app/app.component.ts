@@ -8,18 +8,24 @@ import { AppService } from "./app.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
-  switchForm:FormGroup
+  boardForm:FormGroup
   constructor(private fb:FormBuilder, private appService:AppService){
-    this.switchForm = fb.group({
-      'switch_value':[null]
+    this.boardForm = fb.group({
+      'fan_switch':[false],
+      'fan_slider':[1],
+      'ac_switch':[false],
+      'ac_slider':[1],
+      'light_switch':[false],
+      'light_slider':[1],
     })
   }
 
   ngAfterViewInit(){
-    this.switchForm.controls['switch_value'].valueChanges.subscribe((value)=>{
-        this.appService.changeValue(this.switchForm.value).subscribe((success)=>{
+    this.boardForm.valueChanges.subscribe((value)=>{
+        this.appService.changeValue(this.boardForm.value).subscribe((success)=>{
           console.log(success)
         })
+        console.log(value)
     })
   }
 

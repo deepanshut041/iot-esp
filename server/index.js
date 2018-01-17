@@ -21,10 +21,17 @@ app.use(bodyParser.json());
 //Set Static Folder
 app.use(express.static(path.join(__dirname, 'dist')))
 
-let switch_value = 0;
+let board = {
+    "fan_switch":false,
+    "fan_slider":1,
+    "ac_switch":false,
+    "ac_slider":1,
+    "light_switch":false,
+    "light_slider":1
+};
 
 app.get('/api/switch', (req, res) => {
-    res.json({"switch_value":switch_value})
+    res.json(board)
 });
 
 app.post('/api/switch', (req, res)=>{
