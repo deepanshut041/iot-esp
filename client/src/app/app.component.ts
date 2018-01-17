@@ -8,15 +8,15 @@ import { AppService } from "./app.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
-  boardForm:FormGroup
+  boardForm:FormGroup;
   constructor(private fb:FormBuilder, private appService:AppService){
     this.boardForm = fb.group({
       'fan_switch':[false],
-      'fan_slider':[1],
+      'fan_slider':[0],
       'ac_switch':[false],
-      'ac_slider':[1],
+      'ac_slider':[0],
       'light_switch':[false],
-      'light_slider':[1],
+      'light_slider':[0],
     })
   }
 

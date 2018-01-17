@@ -14,6 +14,7 @@ void setup () {
     delay(1000);
     Serial.print("Connecting..");
   }
+  Serial.println(WiFi.localIP());
  
 }
  
@@ -23,13 +24,14 @@ void loop() {
  
     HTTPClient http;  //Declare an object of class HTTPClient
 
-    // Replace it with your current ip(--> cmd type ipconfig and use ipv4 address instaed of 192.168.1.114
+    // Replace it with your current ip(--> cmd type ipconfig and use ipv4 address instead of 192.168.1.114
     http.begin("http://192.168.1.114:3000/api/board");  //Specify request destination
     int httpCode = http.GET();                                                                  //Send the request
  
     if (httpCode > 0) { //Check the returning code
  
       String payload = http.getString();   //Get the request response payload
+      // Code for sensors goes in sensor_code()
       sensor_code(payload);
     }
  
