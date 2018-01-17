@@ -13,7 +13,7 @@
               <input type="checkbox" formControlName="fan_switch">
               <span class="switch-slider"></span>
             </label>
-            <p class="text-center">status: {{boardForm.value['fan_switch']}}</p>
+            <p class="text-center"><span *ngIf="boardForm.value['fan_switch']">ON</span><span *ngIf="!boardForm.value['fan_switch']">OFF</span></p>
           </div>
           <div class="range-box">
             <input type="range" min="0" max="16" step="1" value="0" class="slider" formControlName="fan_slider">
@@ -32,7 +32,7 @@
               <input type="checkbox" formControlName="ac_switch">
               <span class="switch-slider"></span>
             </label>
-            <p class="text-center">Status: {{boardForm.value['ac_switch']}}</p>
+            <p class="text-center"><span *ngIf="boardForm.value['ac_switch']">ON</span><span *ngIf="!boardForm.value['ac_switch']">OFF</span></p>
           </div>
           <div class="range-box">
             <input type="range" min="0" max="16" step="1" value="0" class="slider" formControlName="ac_slider">
@@ -51,7 +51,7 @@
               <input type="checkbox" formControlName="light_switch">
               <span class="switch-slider"></span>
             </label>
-            <p class="text-center">Status: {{boardForm.value['light_switch']}}</p>
+            <p class="text-center"><span *ngIf="boardForm.value['light_switch']">ON</span><span *ngIf="!boardForm.value['light_switch']">OFF</span></p>
           </div>
           <div class="range-box">
             <input type="range" min="0" max="16" step="1" value="0" class="slider" formControlName="light_slider">
