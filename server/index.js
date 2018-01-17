@@ -19,7 +19,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //Set Static Folder
-app.use(express.static(path.join(__dirname, '../client/dist')))
+app.use(express.static(path.join(__dirname, 'dist')))
 
 let switch_value = 0;
 
@@ -33,7 +33,7 @@ app.post('/api/switch', (req, res)=>{
 })
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
 server.listen(port, ()=>{
