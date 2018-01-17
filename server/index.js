@@ -30,13 +30,18 @@ let board = {
     "light_slider":1
 };
 
-app.get('/api/switch', (req, res) => {
+app.get('/api/board', (req, res) => {
     res.json(board)
 });
 
-app.post('/api/switch', (req, res)=>{
-    switch_value = req.body.switch_value
-    res.json({success:true, msg:"Update value successfully"});
+app.post('/api/board', (req, res)=>{
+    board['fan_switch'] = req.body.fan_switch
+    board['fan_slider'] = req.body.fan_slider
+    board['ac_switch'] = req.body.ac_switch
+    board['ac_slider'] = req.body.ac_slider
+    board['light_switch'] = req.body.light_switch
+    board['light_slider'] = req.body.light_slider
+    res.json({success:true, value:board});
 })
 
 app.get('*', (req, res) => {
