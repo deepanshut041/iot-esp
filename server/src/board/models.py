@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Appliance(models.Model):
     name = models.CharField(max_length=50, null=False)
-    number = models.IntegerField(null=False)
+    label = models.CharField(max_length=10, null=False, default="fan")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     switch_value = models.BooleanField(null=False, default=False)
     slider_value = models.IntegerField(null=False, default=0)

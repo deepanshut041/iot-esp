@@ -9,7 +9,7 @@ class ApplianceModelSerializer(serializers.ModelSerializer):
             'id',
             'user',
             'name',
-            'number',
+            'label',
             'switch_value',
             'slider_value',
             'slider_min',
