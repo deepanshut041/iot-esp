@@ -1,0 +1,120 @@
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 25px;
+    background: rgb(77, 75, 75);
+    outline: none;
+    opacity: 0.8;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+  }
+  
+  .slider:hover {
+    opacity: 1;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #84b547;
+    cursor: pointer;
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #84b547;
+    cursor: pointer;
+  }
+  
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input {
+    display: none;
+  }
+  
+  .switch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(77, 75, 75);
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .switch-slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #212121;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked+.switch-slider {
+    background-color: #2c97de;
+  }
+  
+  input:focus+.switch-slider {
+    box-shadow: 0 0 1px #2c97de;
+  }
+  
+  input:checked+.switch-slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* roww */
+  
+  #item {
+    padding-bottom: 50px;
+    background: #212121;
+    min-height: 100vh;
+  }
+  
+  #item h1 {
+    padding-top: 70px;
+    margin-bottom: 50px;
+    font-weight: 300;
+    padding-bottom: 10px;
+    color: #cc3e4a;
+  }
+  
+  #item div.item-container {
+    margin: 20px;
+    background: #2d2d2d;
+    width: 300px;
+    padding: 10px;
+    box-shadow: 5px 10px 10px -2px #2d2d2dc5;
+  }
+  
+  
+  #item div.item-container h3 {
+    padding: 20px 0px 30px 0px;
+    font-weight: 300;
+    color: #cc3e4a;
+  }
+  
+  #item div.item-container .switch-box {
+    margin-bottom: 50px;
+  }
+  #item div.item-container .switch-box p {
+    color: #2c97de;
+  }
+  #item div.item-container .range-box p {
+    color: #84b547;
+  } 
