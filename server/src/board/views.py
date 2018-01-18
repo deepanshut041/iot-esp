@@ -2,11 +2,11 @@ from django.shortcuts import render
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import authentication, permissions
+from rest_framework import authentication, permissions, status
 
 from django.contrib.auth.models import User
 from .models import Appliance
-from .serializer import ApplianceModelSerializer
+from .serializer import ApplianceModelSerializer, UserLoginSerializer
 # Create your views here.
 
 class ApplianceArduinoView(APIView):
@@ -36,7 +36,7 @@ class ApplianceArduinoView(APIView):
 
 class ApplianceModelView(APIView):
     serializer_class = ApplianceModelSerializer
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_appliance(self, pk):
         try:
@@ -58,7 +58,7 @@ class ApplianceModelView(APIView):
 
 class ApplianceDetailModelView(APIView):
     serializer_class = ApplianceModelSerializer
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_appliance(self, pk):
         try:
@@ -78,6 +78,19 @@ class ApplianceDetailModelView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UserLoginAPIView(APIView):
+    """
+    docstring here
+        :param APIView: 
+    """
+    serializer_class = UserLoginSerializer
+    permission_classes = (permissions.AllowAny,)
+    def post(self, request, *args, **kwargs):
+        serializer = UserLoginSerializer(data=request.data)
+        if serializer.is_valid():
+            return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     
