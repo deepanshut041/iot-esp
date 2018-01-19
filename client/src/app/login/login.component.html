@@ -1,0 +1,43 @@
+<div id="login-page">
+    <div class="container">
+        <form class="form-login" [formGroup]="loginForm" (ngSubmit)="login()">
+            <h2 class="form-login-heading">sign in now</h2>
+            <div class="login-wrap" id="form">
+                <div class="textBox">
+                    <input class="text" type="textbox" onkeyup="this.setAttribute('value', this.value);" value="" formControlName="email" [ngStyle]="!loginForm.controls['email'].valid && loginForm.controls['email'].touched ?{'border-color': '#EF9A9A'}:{}"
+                    />
+                    <label class="label" [ngStyle]="!loginForm.controls['email'].valid && loginForm.controls['email'].touched ?{'color': '#FF5252'}:{}">Email</label>
+                    <label class="error text-right" *ngIf="!loginForm.controls['email'].valid && loginForm.controls['email'].touched">Please Enter a valid email</label>
+                </div>
+                <div class="textBox">
+                    <input class="text" type="password" onkeyup="this.setAttribute('value', this.value);" value="" formControlName="password"
+                        [ngStyle]="!loginForm.controls['password'].valid && loginForm.controls['password'].touched ?{'border-color': '#EF9A9A'}:{}"
+                    />
+                    <label class="label" [ngStyle]="!loginForm.controls['password'].valid && loginForm.controls['password'].touched ?{'color': '#FF5252'}:{}">Password</label>
+                    <label class="error text-right" *ngIf="!loginForm.controls['password'].valid && loginForm.controls['password'].touched">Please Enter a valid Password</label>
+                </div>
+                <button class="btn btn-theme btn-block" type="submit" [disabled]="!loginForm.valid">
+                    <i class="fa fa-lock"></i> SIGN IN</button>
+                <hr>
+                <div class="row" *ngIf="err">
+                    <div class="col-12">
+                        <div class="alert alert-danger" role="alert">
+                            {{err}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+        <div class="text-center spinner" id="spinner">
+            <br>
+            <br>
+            <i class="fa fa-spinner fa-4x fa-spin" aria-hidden="true"></i>
+            <br>
+            <h4>Please Wait!</h4>
+            <br>
+            <br>
+            <br>
+        </div>
+    </div>
+</div>

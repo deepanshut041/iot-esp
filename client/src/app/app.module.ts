@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { BoardComponent } from "./board/board.component";
 import { LoginComponent } from "./login/login.component";
 import { AppService } from "./app.service";
+import { AuthGaurd } from "./auth-gaurd.service";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { AppService } from "./app.service";
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule, AppRoutingModule
   ],
-  providers: [AppService],
+  providers: [AppService, AuthGaurd],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
