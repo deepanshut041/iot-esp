@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, FormArray } from "@angular/forms";
 import { AppService } from "../app.service";
 
@@ -9,7 +9,7 @@ import { AppService } from "../app.service";
   styleUrls: ["./board.component.css"]
 })
 
-export class BoardComponent implements OnInit, AfterViewInit {
+export class BoardComponent implements OnInit {
 
   boardForm: FormGroup;
   items: FormArray;
@@ -24,36 +24,36 @@ export class BoardComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.appService.getBoard().subscribe((value) => {
       this.appliances = value
-      console.log(this.appliances);
-      this.appliances.map(appliance=>{
+      this.appliances.map(appliance => {
         this.addItem(appliance)
       })
+      this.items.controls.forEach(control => {
+        control.valueChanges.subscribe(
+          () => {
+            this.appService.changeValue(control.value, control.value['id']).subscribe(
+              (success) => {
+                console.log(success)
+              },
+              (err) => {
+                console.log(err)
+              })
+          })
+      });
     }, (err) => {
       console.log(err)
     })
   }
-  ngAfterViewInit() {
-    this.items.controls.forEach(
-      control => {
-        control.valueChanges.subscribe(
-          () => {
-            console.log(this.items.controls.indexOf(control)) // logs index of changed item in form array
-          })
-      }
-    )
-  }
-
   createItem(item): FormGroup {
     console.log(item)
     return this.fb.group({
       'switch_value': [item['switch_value']],
       'slider_value': [item['slider_value']],
-      'id':[item['id']],
-      'user':[item['user']],
-      'name':[item['name']],
-      'slider_max':[item['slider_max']],
-      'slider_min':[item['slider_min']],
-      'slider_step':[item['slider_step']],
+      'id': [item['id']],
+      'user': [item['user']],
+      'name': [item['name']],
+      'slider_max': [item['slider_max']],
+      'slider_min': [item['slider_min']],
+      'slider_step': [item['slider_step']],
     });
   }
   addItem(item): void {

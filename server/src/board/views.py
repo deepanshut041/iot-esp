@@ -68,7 +68,7 @@ class ApplianceDetailModelView(APIView):
     
     def put(self, request, pk, format=None):
         appliance = self.get_appliance(pk)
-        serializer = ApplianceModelSerializer(appliance, data=request.data)
+        serializer = ApplianceModelSerializer(appliance, data=request.data,partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

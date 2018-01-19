@@ -13,10 +13,10 @@
                 <input type="checkbox" formControlName="switch_value">
                 <span class="switch-slider"></span>
               </label>
-              <p class="text-center">hii</p>
+              <p class="text-center"><span *ngIf="item.value['switch_value']">ON</span><span *ngIf="!item.value['switch_value']">OFF</span></p>
             </div>
             <div class="range-box">
-              <input type="range" min="0" max="16" step="1" value="0" class="slider" formControlName="slider_value">
+              <input type="range" min="{{item.value['slider_min']}}" max="{{item.value['slider_max']}}" step="{{item.value['slider_step']}}" class="slider" formControlName="slider_value">
               <p class="text-center">Intensity:{{item.value['slider_value']}}</p>
             </div>
           </div>

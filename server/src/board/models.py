@@ -11,5 +11,8 @@ class Appliance(models.Model):
     slider_max = models.IntegerField(null=False, default=100)
     slider_step = models.DecimalField(max_digits=6, decimal_places=3, default=1.0)
 
+    class Meta:
+        unique_together = ('user', 'label')
+
     def __str__(self):
         return str(self.name)

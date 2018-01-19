@@ -23,7 +23,7 @@ export class AppService {
             'Content-Type': 'application/json; charset=utf-8',
             'Authorization': 'JWT ' + this.authToken
         });
-        return this.http.post(this.domain + "/api/v1/appliance/detail/"+id+"/", value, { headers: headers })
+        return this.http.put(this.domain + "/api/v1/appliance/detail/"+id+"/", value, { headers: headers })
     }
     getBoard(){
         this.loadToken();
