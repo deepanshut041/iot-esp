@@ -4,7 +4,7 @@ import { Observable, Observer } from "rxjs/Rx"
 
 @Injectable()
 export class AppService {
-    domain = "http://localhost:8000"
+    domain = "."
     status: Observable<boolean>;
     authToken: any;
     private observer: Observer<boolean>;
