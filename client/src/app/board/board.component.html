@@ -2,60 +2,22 @@
     <h1 class="text-center">SMART SWITCH BOARD</h1>
     <form [formGroup]="boardForm">
       <div class="row justify-content-center">
-        <!-- Fan container -->
-        <div class="item-container">
-          <div>
+        <!-- container -->
+        <div class="item-container" formArrayName="items" *ngFor="let item of boardForm.get('items')['controls']; let i = index;">
+          <div [formGroupName]="i">
             <div class="text-center">
-              <h3>FAN</h3>
+              <h3>{{item.value['name']}}</h3>
             </div>
             <div class="text-center switch-box">
               <label class="switch">
-                <input type="checkbox" formControlName="fan_switch">
+                <input type="checkbox" formControlName="switch_value">
                 <span class="switch-slider"></span>
               </label>
-              <p class="text-center"><span *ngIf="boardForm.value['fan_switch']">ON</span><span *ngIf="!boardForm.value['fan_switch']">OFF</span></p>
+              <p class="text-center">hii</p>
             </div>
             <div class="range-box">
-              <input type="range" min="0" max="16" step="1" value="0" class="slider" formControlName="fan_slider">
-              <p class="text-center">Intensity: {{boardForm.value['fan_slider']}}</p>
-            </div>
-          </div>
-        </div>
-        <!-- Ac Container -->
-        <div class="item-container">
-          <div>
-            <div class="text-center">
-              <h3>AIR CONDITIONER</h3>
-            </div>
-            <div class="text-center switch-box">
-              <label class="switch">
-                <input type="checkbox" formControlName="ac_switch">
-                <span class="switch-slider"></span>
-              </label>
-              <p class="text-center"><span *ngIf="boardForm.value['ac_switch']">ON</span><span *ngIf="!boardForm.value['ac_switch']">OFF</span></p>
-            </div>
-            <div class="range-box">
-              <input type="range" min="0" max="16" step="1" value="0" class="slider" formControlName="ac_slider">
-              <p class="text-center">Intensity: {{boardForm.value['ac_slider']}}</p>
-            </div>
-          </div>
-        </div>
-        <!-- light container -->
-        <div class="item-container">
-          <div>
-            <div class="text-center">
-              <h3>LED BULB</h3>
-            </div>
-            <div class="text-center switch-box">
-              <label class="switch">
-                <input type="checkbox" formControlName="light_switch">
-                <span class="switch-slider"></span>
-              </label>
-              <p class="text-center"><span *ngIf="boardForm.value['light_switch']">ON</span><span *ngIf="!boardForm.value['light_switch']">OFF</span></p>
-            </div>
-            <div class="range-box">
-              <input type="range" min="0" max="16" step="1" value="0" class="slider" formControlName="light_slider">
-              <p class="text-center">Intensity: {{boardForm.value['light_slider']}}</p>
+              <input type="range" min="0" max="16" step="1" value="0" class="slider" formControlName="slider_value">
+              <p class="text-center">Intensity:{{item.value['slider_value']}}</p>
             </div>
           </div>
         </div>

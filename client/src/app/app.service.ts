@@ -17,12 +17,21 @@ export class AppService {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
         return this.http.post(this.domain + '/api/v1/auth/login/', user, { headers: headers });
     }
-    changeValue(value) {
+    changeValue(value, id) {
+        this.loadToken();
         const headers = new HttpHeaders({
             'Content-Type': 'application/json; charset=utf-8',
             'Authorization': 'JWT ' + this.authToken
         });
-        return this.http.post("./api/board", value, { headers: headers })
+        return this.http.post(this.domain + "/api/v1/appliance/detail/"+id+"/", value, { headers: headers })
+    }
+    getBoard(){
+        this.loadToken();
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json; charset=utf-8',
+            'Authorization': 'JWT ' + this.authToken
+        });
+        return this.http.get(this.domain + "/api/v1/appliance/", { headers: headers })
     }
     loadToken() {
         const token = localStorage.getItem('id_token');

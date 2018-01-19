@@ -44,15 +44,9 @@ class ApplianceModelView(APIView):
         except Appliance.DoesNotExist:
             raise Http404
 
-    def get(self, request, username):
+    def get(self, request):
 
-        try:
-            user = User.objects.get(username = username)
-        except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-            user = None
-        if user is None:
-            raise Http404
-        appliances = self.get_appliance(user.pk)
+        appliances = self.get_appliance(request.user.pk)
         appliance_serializer = ApplianceModelSerializer(appliances, many=True)
         return Response(appliance_serializer.data)
 
